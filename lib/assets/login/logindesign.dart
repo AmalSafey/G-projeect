@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_graduation/assets/const.dart';
 import 'package:flutter_application_graduation/assets/login/lofinbyfacebook.dart';
 import 'package:flutter_application_graduation/register/registerdesign.dart';
 
@@ -16,9 +17,7 @@ class Logindesign extends StatelessWidget {
           title: Text(
             'Log in',
             style: TextStyle(
-                color: Color.fromARGB(255, 112, 182, 182),
-                fontSize: 24,
-                fontWeight: FontWeight.bold),
+                color: maincolor, fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
         body: Padding(
@@ -30,22 +29,22 @@ class Logindesign extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Text(
                           "Welcome Back",
                           style: TextStyle(
-                              color: Color(0xFF222222),
+                              color: maincolor,
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 8.0),
                         child: Text(
                           "Sign in to  your account",
                           style: TextStyle(
-                            color: Color(0xFF888888),
+                            color: maincolor,
                             fontSize: 15,
                             // fontWeight: FontWeight.bold
                           ),
@@ -75,7 +74,7 @@ class Logindesign extends StatelessWidget {
                             validateForm();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 63, 154, 152),
+                            backgroundColor: maincolor,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 13.0),
                             shape: const RoundedRectangleBorder(
@@ -100,6 +99,7 @@ class Logindesign extends StatelessWidget {
                         InkWell(
                           child: Text("Forget PassWord",
                               style: TextStyle(
+                                  fontWeight: FontWeight.bold,
                                   fontSize: 15,
                                   color: Color.fromARGB(255, 112, 182, 182))),
                         ),
@@ -113,8 +113,9 @@ class Logindesign extends StatelessWidget {
                           Text(
                             "Donnot have an account ? ",
                             style: TextStyle(
-                              color: Color(0xFF888888),
-                              fontWeight: FontWeight.w400,
+                              fontSize: 15,
+                              color: maincolor,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                           InkWell(
@@ -125,7 +126,8 @@ class Logindesign extends StatelessWidget {
                             child: Text(
                               'Sign Up',
                               style: TextStyle(
-                                color: Color.fromARGB(255, 112, 182, 182),
+                                fontSize: 20,
+                                color: maincolor,
                               ),
                             ),
                           ),
@@ -140,9 +142,7 @@ class Logindesign extends StatelessWidget {
                       Center(
                         child: Text(
                           'Or Login In With',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 112, 182, 182),
-                          ),
+                          style: TextStyle(color: maincolor, fontSize: 20),
                         ),
                       ),
                       SizedBox(
@@ -156,7 +156,7 @@ class Logindesign extends StatelessWidget {
 
                             icon: Icon(Icons.add), // إضافة أيقونة Google
                             iconSize: 30,
-                            // cor: Colors.red,
+                            //color: Colors.blue,
                             // color: Colors.teal,
                           ),
                           const Text(
@@ -177,7 +177,7 @@ class Logindesign extends StatelessWidget {
 
                             icon: Icon(Icons.facebook),
                             iconSize: 35,
-                            //color: Colors.red,
+                            color: Colors.blue,
                             // color: Colors.teal,
                           ),
                           const Text(
