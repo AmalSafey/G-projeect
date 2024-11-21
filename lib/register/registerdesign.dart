@@ -31,13 +31,11 @@ class _registerdesignState extends State<registerdesign> {
         title: Text(
           'Sign Up',
           style: TextStyle(
-              color: Color.fromARGB(255, 112, 182, 182),
-              fontSize: 24,
-              fontWeight: FontWeight.bold),
+              color: textcolor, fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -45,17 +43,17 @@ class _registerdesignState extends State<registerdesign> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(left: 8),
                   child: Text(
                     "Welcome To Innova",
                     style: TextStyle(
-                        color: Color(0xFF222222),
+                        color: textcolor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Padding(
+                /*const Padding(
                   padding: EdgeInsets.only(left: 8.0),
                   child: Text(
                     "Create Your account",
@@ -65,7 +63,7 @@ class _registerdesignState extends State<registerdesign> {
                       // fontWeight: FontWeight.bold
                     ),
                   ),
-                ),
+                ),*/
                 SizedBox(
                   height: 20,
                 ),
@@ -93,13 +91,12 @@ class _registerdesignState extends State<registerdesign> {
                   height: 15,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 10, right: 10),
                   child: TextFormField(
                     readOnly: true,
                     decoration: InputDecoration(
                       labelText: "Select Role",
-                      labelStyle: const TextStyle(
-                          color: Color(0xFF333333), fontSize: 15),
+                      labelStyle: TextStyle(color: textcolor, fontSize: 15),
                       hintText: "Choose one",
                       suffixIcon: DropdownButton<String>(
                         items:
@@ -121,15 +118,15 @@ class _registerdesignState extends State<registerdesign> {
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Color(0xFFB2B1B1)),
+                        borderSide: BorderSide(color: textcolor),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(color: Color(0xFFB2B1B1)),
+                        borderSide: BorderSide(color: textcolor),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: Color(0xFFB2B1B1)),
+                        borderSide: BorderSide(color: textcolor),
                       ),
                     ),
                     controller: TextEditingController(text: selectedRole),
@@ -177,8 +174,9 @@ class _registerdesignState extends State<registerdesign> {
                     Text(
                       "Already have an account? ",
                       style: TextStyle(
-                        color: Color(0xFF888888),
-                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: textcolor,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                     InkWell(
@@ -188,6 +186,8 @@ class _registerdesignState extends State<registerdesign> {
                       child: Text(
                         'Login',
                         style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
                           color: Color.fromARGB(255, 112, 182, 182),
                         ),
                       ),
@@ -202,11 +202,13 @@ class _registerdesignState extends State<registerdesign> {
                 SizedBox(
                   height: 15,
                 ),
-                const Center(
+                Center(
                   child: Text(
                     'Or Sign In With',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 112, 182, 182),
+                      fontSize: 16,
+                      color: textcolor,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
@@ -224,10 +226,10 @@ class _registerdesignState extends State<registerdesign> {
                       // cor: Colors.red,
                       // color: Colors.teal,
                     ),
-                    const Text(
+                    Text(
                       'Google',
                       style: TextStyle(
-                        color: Color(0xFF222222),
+                        color: blackcolor,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -239,13 +241,13 @@ class _registerdesignState extends State<registerdesign> {
 
                       icon: Icon(Icons.facebook),
                       iconSize: 35,
-                      //color: Colors.red,
+                      color: Colors.blue,
                       // color: Colors.teal,
                     ),
-                    const Text(
+                    Text(
                       'Facebook',
                       style: TextStyle(
-                        color: Color(0xFF222222),
+                        color: blackcolor,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -278,24 +280,24 @@ Widget _buildTextFormField(
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(14), // تقليل المسافة داخل الـ TextField
         labelText: label,
-        labelStyle: const TextStyle(color: Color(0xFF333333), fontSize: 15),
+        labelStyle: TextStyle(color: maincolor, fontSize: 15),
         hintText: hint,
-        hintStyle: const TextStyle(
-          color: Color(0xFF333333),
+        hintStyle: TextStyle(
+          color: maincolor,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(
-            color: Color(0xFFB2B1B1),
+            color: maincolor,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: Color(0xFFB2B1B1)),
-        ),
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: maincolor)),
+
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xFFB2B1B1)),
+          borderSide: BorderSide(color: maincolor),
         ),
       ),
       validator: (value) {
