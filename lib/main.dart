@@ -1,8 +1,11 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/assets/const.dart';
+import 'package:flutter_application_graduation/assets/login/forgetpassword.dart';
 import 'package:flutter_application_graduation/assets/login/lofinbyfacebook.dart';
 import 'package:flutter_application_graduation/assets/login/logindesign.dart';
+import 'package:flutter_application_graduation/assets/login/reset.dart';
+import 'package:flutter_application_graduation/assets/profile/profil.dart';
 import 'package:flutter_application_graduation/register/registerdesign.dart';
 
 void main() {
@@ -29,12 +32,21 @@ class MyApp extends StatelessWidget {
           backgroundImage:
               AssetImage('lib/assets/photo_5904657378991784728_y.jpg'),
         ),
-        nextScreen: registerdesign(),
+        nextScreen: RegisterDesign(),
       ),
       routes: {
         Logindesign.routname: (context) => Logindesign(),
-        registerdesign.routteName: (context) => registerdesign(),
-        Logindesignfacebook.routname: (context) => Logindesignfacebook()
+        RegisterDesign.routeName: (context) => RegisterDesign(),
+        forgetpassword.routname: (context) => forgetpassword(),
+        resetpassword.routname: (context) => resetpassword(),
+        profiledesign.routeName: (context) => profiledesign(
+              firstnameController: '',
+              emailController: '',
+              lastnameController: '',
+              passwordController: '',
+              cityController: '',
+              phoneNumber: '',
+            )
       },
     );
   }

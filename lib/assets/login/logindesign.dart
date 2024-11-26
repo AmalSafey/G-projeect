@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/assets/const.dart';
+import 'package:flutter_application_graduation/assets/login/forgetpassword.dart';
 import 'package:flutter_application_graduation/assets/login/lofinbyfacebook.dart';
 import 'package:flutter_application_graduation/register/registerdesign.dart';
 
@@ -97,6 +98,10 @@ class Logindesign extends StatelessWidget {
                       ),
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                         InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, forgetpassword.routname);
+                          },
                           child: Text("Forget PassWord",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -121,7 +126,7 @@ class Logindesign extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, registerdesign.routteName);
+                                  context, RegisterDesign.routeName);
                             },
                             child: Text(
                               'Sign Up',
@@ -170,10 +175,7 @@ class Logindesign extends StatelessWidget {
                             width: 40,
                           ),
                           IconButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, Logindesignfacebook.routname);
-                            },
+                            onPressed: () {},
 
                             icon: Icon(Icons.facebook),
                             iconSize: 35,
@@ -211,24 +213,24 @@ Widget _buildTextFormField(
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(14), // تقليل المسافة داخل الـ TextField
         labelText: label,
-        labelStyle: const TextStyle(color: Color(0xFF333333), fontSize: 15),
+        labelStyle: TextStyle(color: maincolor, fontSize: 15),
         hintText: hint,
-        hintStyle: const TextStyle(
-          color: Color(0xFF333333),
+        hintStyle: TextStyle(
+          color: maincolor,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(
-            color: Color(0xFFB2B1B1),
+            color: maincolor,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: Color(0xFFB2B1B1)),
+          borderSide: BorderSide(color: maincolor),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xFFB2B1B1)),
+          borderSide: BorderSide(color: maincolor),
         ),
       ),
       validator: (value) {
