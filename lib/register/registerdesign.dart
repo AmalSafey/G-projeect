@@ -190,9 +190,15 @@ class _RegisterDesignState extends State<RegisterDesign> {
               MaterialPageRoute(builder: (context) => homescreen()),
             );
           } else if (state is RegisterFailedState) {
-            // Optionally show an error message
-            final snackBar = SnackBar(content: Text(state.message));
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      content: Text(
+                        state.message,
+                        style: TextStyle(color: maincolor),
+                      ),
+                      backgroundColor: Colors.white,
+                    ));
           }
         },
       ),
@@ -301,6 +307,7 @@ class _RegisterDesignState extends State<RegisterDesign> {
     );
   }
 }
+
 /*import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/api/apibase.dart';
 import 'package:flutter_application_graduation/assets/const.dart';
@@ -353,7 +360,8 @@ class _RegisterDesignState extends State<registerdesign> {
           country: countryController.text,
           district: districtController.text,
           phoneNumber: phoneNumberController.text,
-          roleid: '84cfb1b6-de20-4b01-a39c-e34dcd708bd3',
+          // roleid: '84cfb1b6-de20-4b01-a39c-e34dcd708bd3',
+          roleId: '',
         );
 
         setState(() {

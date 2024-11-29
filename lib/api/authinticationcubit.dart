@@ -5,7 +5,7 @@ import 'package:flutter_application_graduation/api/abstractclass.dart';
 import 'package:http/http.dart' as http;
 
 class AuthCubit extends Cubit<AuthStates> {
-  static const String baseUrl = 'https://localhost:7151/api/Account';
+  static const String baseUrl = 'https://:7151/api/Account';
   static const String registerApi = '$baseUrl/register';
   static const String loginApi = '$baseUrl/login';
 
