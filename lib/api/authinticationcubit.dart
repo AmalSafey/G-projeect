@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/api/abstractclass.dart';
 import 'package:http/http.dart' as http;
 
 class AuthCubit extends Cubit<AuthStates> {
-  static const String baseUrl = 'https://:7151/api/Account';
+  static const String baseUrl = 'https://localhost/7151/api/Account';
   static const String registerApi = '$baseUrl/register';
   static const String loginApi = '$baseUrl/login';
 
@@ -59,4 +60,32 @@ class AuthCubit extends Cubit<AuthStates> {
           message: 'Error: $e')); // Emit error state on exception
     }
   }
+
+  void login({required String email, required String password}) async {
+    emit(loginloadingstate());
+    final Response = await http.post(Uri.parse(loginApi),
+        body: {"email": email, "password": password});
+    try {
+      if (Response.statusCode == 200) {
+        var data = jsonDecode(Response.body);
+        if (data['state'] == true) {
+          debugPrint("Login Success");
+          emit(loginsuccessstate());
+        } else {
+          emit(loginfaildstate(message: data['message']));
+          debugPrint("Login faild the reason is $data");
+        }
+      }
+    } on Exception catch (e) {
+      // TODO
+      loginfaildstate(message: e.toString());
+    }
+  }
 }
+/*
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/AmalSafey/innova.git
+git push -u origin main*/

@@ -20,7 +20,7 @@ class resetpassword extends StatelessWidget {
               children: [
                 Icon(
                   Icons.lock,
-                  size: 65,
+                  size: 100,
                   color: maincolor,
                 ),
               ],
@@ -32,6 +32,9 @@ class resetpassword extends StatelessWidget {
               "Reset Password",
               style: TextStyle(
                   color: maincolor, fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 40,
             ),
             _buildTextFormField(
                 password, "New Password", " Enter New Password"),

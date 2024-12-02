@@ -20,7 +20,7 @@ class forgetpassword extends StatelessWidget {
               children: [
                 Icon(
                   Icons.lock,
-                  size: 65,
+                  size: 100,
                   color: maincolor,
                 ),
               ],
