@@ -6,9 +6,13 @@ import 'package:flutter_application_graduation/api/abstractclass.dart';
 import 'package:http/http.dart' as http;
 
 class AuthCubit extends Cubit<AuthStates> {
-  static const String baseUrl = 'https://localhost/7151/api/Account';
+  static const String baseUrl =
+      'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Account';
   static const String registerApi = '$baseUrl/register';
   static const String loginApi = '$baseUrl/login';
+  static const String forgetPasswordApi =
+      'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Profile/generate-token';
+  static const String resetPasswordApi = '$baseUrl/reset-password';
 
   AuthCubit() : super(AuthInitialState());
 
@@ -31,7 +35,7 @@ class AuthCubit extends Cubit<AuthStates> {
       final response = await http.post(
         Uri.parse(registerApi),
         headers: {
-          'Content-Type': 'application/json', // Set content type to JSON
+          'Content-Type': 'application/json',
         },
         body: jsonEncode({
           "firstName": firstName,
@@ -48,44 +52,143 @@ class AuthCubit extends Cubit<AuthStates> {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        emit(RegisterSuccessState()); // Emit success state
+        emit(RegisterSuccessState());
       } else {
-        var errorResponse = jsonDecode(response.body);
+        final errorResponse = jsonDecode(response.body);
         emit(RegisterFailedState(
-            message: errorResponse['Message'] ??
-                'Failed to register.')); // Emit error state
+            message: errorResponse['Message'] ?? 'Failed to register.'));
       }
     } catch (e) {
-      emit(RegisterFailedState(
-          message: 'Error: $e')); // Emit error state on exception
+      emit(RegisterFailedState(message: 'Error: $e'));
     }
   }
 
-  void login({required String email, required String password}) async {
-    emit(loginloadingstate());
-    final Response = await http.post(Uri.parse(loginApi),
-        body: {"email": email, "password": password});
+  // Login
+  Future<void> login({required String email, required String password}) async {
+    emit(LoginLoadingState());
+
     try {
-      if (Response.statusCode == 200) {
-        var data = jsonDecode(Response.body);
+      final response = await http.post(
+        Uri.parse(loginApi),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "email": email,
+          "password": password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
         if (data['state'] == true) {
-          debugPrint("Login Success");
-          emit(loginsuccessstate());
+          emit(LoginSuccessState(
+              Message:
+                  data['message'])); // Corrected parameter name to 'message'
         } else {
-          emit(loginfaildstate(message: data['message']));
-          debugPrint("Login faild the reason is $data");
+          emit(LoginFailedState(message: data['message']));
         }
+      } else {
+        emit(LoginFailedState(message: 'Login failed. Please try again.'));
       }
-    } on Exception catch (e) {
-      // TODO
-      loginfaildstate(message: e.toString());
+    } catch (e) {
+      emit(LoginFailedState(
+          message:
+              'An error occurred: ${e.toString()}')); // Improved error message
+    }
+  }
+
+  Future<void> forgetPassword({required String email}) async {
+    emit(ForgetPasswordLoadingState());
+
+    try {
+      final response = await http.post(
+        Uri.parse(forgetPasswordApi),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({"email": email}),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final String token =
+            data['token']; // Assuming 'token' is the key for the token
+        emit(ForgetPasswordSuccessState(
+          message: "Reset link sent. Token: $token",
+          token: token,
+        ));
+      } else {
+        final errorResponse = jsonDecode(response.body);
+        emit(ForgetPasswordFailedState(
+          message: errorResponse['message'] ?? 'Failed to send reset link.',
+        ));
+      }
+    } catch (e) {
+      emit(ForgetPasswordFailedState(
+        message: 'Error: $e',
+      ));
+    }
+  }
+
+  Future<void> verifyCode({required String code}) async {
+    emit(VerificationLoadingState());
+
+    try {
+      final response = await http.post(
+        Uri.parse(""),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "code": code,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        emit(VerificationSuccessState(message: data['message']));
+      } else {
+        final errorResponse = jsonDecode(response.body);
+        emit(VerificationFailedState(
+            message: errorResponse['message'] ?? 'Verification failed.'));
+      }
+    } catch (e) {
+      emit(VerificationFailedState(message: 'Error: $e'));
+    }
+  }
+
+  // Reset Password
+  Future<void> resetPassword({
+    required String email,
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
+    emit(ResetPasswordLoadingState());
+
+    try {
+      final response = await http.post(
+        Uri.parse(resetPasswordApi),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "email": email,
+          "newPassword": newPassword,
+          "confirmPassword": confirmPassword,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        emit(ResetPasswordSuccessState(message: data['message']));
+      } else {
+        final errorResponse = jsonDecode(response.body);
+        emit(ResetPasswordFailedState(
+            message: errorResponse['message'] ?? 'Failed to reset password.'));
+      }
+    } catch (e) {
+      emit(ResetPasswordFailedState(message: 'Error: $e'));
     }
   }
 }
-/*
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/AmalSafey/innova.git
-git push -u origin main*/

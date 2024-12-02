@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class homescreen extends StatelessWidget {
-  const homescreen({super.key});
-
+  static const routname = "home";
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.brown,
+    );
   }
 }
