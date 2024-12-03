@@ -15,6 +15,35 @@ class Logindesign extends StatefulWidget {
 }
 
 class _LogindesignState extends State<Logindesign> {
+  void _showDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Text(
+          message,
+          style: TextStyle(
+            color: Color.fromARGB(255, 112, 182, 182),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: Text(
+              "OK",
+              style: TextStyle(
+                color: Color.fromARGB(255, 112, 182, 182),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   final email = TextEditingController();
   final password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -156,18 +185,13 @@ class _LogindesignState extends State<Logindesign> {
       },
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => homescreen()),
-          );
+          _showDialog(context, "Registration successful!");
+          Future.delayed(Duration(seconds: 2), () {
+            // Adjust the duration as needed
+            Navigator.pushReplacementNamed(context, homescreen.routname);
+          });
         } else if (state is LoginFailedState) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Container(
-              alignment: Alignment.center,
-              height: 50,
-              child: Text(state.message),
-            ),
-          ));
+          _showDialog(context, state.message);
         }
       },
     );

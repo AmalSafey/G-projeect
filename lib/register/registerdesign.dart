@@ -76,9 +76,12 @@ class _RegisterDesignState extends State<RegisterDesign> {
       listener: (context, state) {
         if (state is RegisterSuccessState) {
           _showDialog(context, "Registration successful!");
-          Navigator.pushReplacementNamed(context, homescreen.routname);
+          Future.delayed(Duration(seconds: 2), () {
+            // Adjust the duration as needed
+            Navigator.pushReplacementNamed(context, homescreen.routname);
+          });
         } else if (state is RegisterFailedState) {
-          _showDialog(context, state.message);
+          _showDialog(context, "Some thing Went Wrong");
         }
       },
       builder: (context, state) {

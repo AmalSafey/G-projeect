@@ -110,10 +110,14 @@ class AuthCubit extends Cubit<AuthStates> {
         body: jsonEncode({"email": email}),
       );
 
+      // Log the response for debugging
+      print("Response status: ${response.statusCode}");
+      print("Response body: ${response.body}");
+
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final String token =
-            data['token']; // Assuming 'token' is the key for the token
+            data['token']; // Check if 'token' exists in response
         emit(ForgetPasswordSuccessState(
           message: "Reset link sent. Token: $token",
           token: token,
@@ -125,6 +129,7 @@ class AuthCubit extends Cubit<AuthStates> {
         ));
       }
     } catch (e) {
+      print("Error: $e"); // Log the error
       emit(ForgetPasswordFailedState(
         message: 'Error: $e',
       ));

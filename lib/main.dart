@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             backgroundImage:
                 AssetImage('lib/assets/photo_5904657378991784728_y.jpg'),
           ),
-          nextScreen: VerificationCodePage(),
+          nextScreen: RegisterDesign(),
         ),
         routes: {
           Logindesign.routname: (context) => Logindesign(),
