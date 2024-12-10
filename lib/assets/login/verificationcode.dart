@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/api/abstractclass.dart';
 import 'package:flutter_application_graduation/api/authinticationcubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -103,7 +103,7 @@ class VerificationCodePage extends StatelessWidget {
     );
   }
 
-  void _verifyCode(BuildContext context) {
+  /*void _verifyCode(BuildContext context) {
     final code = codeController.text;
 
     if (code.isNotEmpty) {
@@ -117,7 +117,7 @@ class VerificationCodePage extends StatelessWidget {
         backgroundColor: maincolor,
       ));
     }
-  }
+  }*/
 
   Widget _buildTextFormField({
     required TextEditingController controller,
@@ -151,3 +151,4 @@ class VerificationCodePage extends StatelessWidget {
     );
   }
 }
+*/

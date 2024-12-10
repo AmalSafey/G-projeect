@@ -1,162 +1,158 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_application_graduation/api/abstractclass.dart';
-import 'package:flutter_application_graduation/api/authinticationcubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_application_graduation/assets/const.dart';
-import 'package:flutter_application_graduation/assets/login/reset.dart';
+import 'package:http/http.dart' as http;
 
 class resetpassword extends StatelessWidget {
-  static String routname = "reset";
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController newPasswordController = TextEditingController();
+  static String routname = "reset_password";
+
+  final TextEditingController userIdController = TextEditingController();
+  final TextEditingController tokenController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocListener<AuthCubit, AuthStates>(
-        listener: (context, state) {
-          if (state is ResetPasswordSuccessState) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.message),
-            ));
-            Navigator.pop(context); // Navigate back or to another screen
-          } else if (state is ResetPasswordFailedState) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.message),
-            ));
-          }
+  // Logic for resetting the password
+  Future<void> resetPassword(BuildContext context, String userId, String token,
+      String password) async {
+    final url = Uri.parse(
+        'https://your-api-endpoint.com/reset-password'); // Replace with your API endpoint
+    try {
+      // Show loading indicator
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(child: CircularProgressIndicator());
         },
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-              SizedBox(height: 80),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.lock,
-                    size: 100,
-                    color: maincolor,
-                  ),
-                ],
-              ),
-              SizedBox(height: 40),
-              Text(
-                "Reset Password",
-                style: TextStyle(
-                    color: maincolor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Please Enter Your Email Address",
-                    style: TextStyle(color: maincolor, fontSize: 18),
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-              _buildTextFormField(
-                  emailController, "Email", "Please Enter Your Email",
-                  isEmail: true),
-              SizedBox(height: 20),
-              _buildTextFormField(
-                  newPasswordController, "New Password", "Enter New Password",
-                  obscureText: true),
-              SizedBox(height: 20),
-              _buildTextFormField(confirmPasswordController, "Confirm Password",
-                  "Confirm Your Password",
-                  obscureText: true),
-              SizedBox(height: 40),
-              Container(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _resetPassword(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 63, 154, 152),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 13.0),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                  ),
-                  child: const Text(
-                    'Reset Password',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+      );
 
-  void _resetPassword(BuildContext context) {
-    final email = emailController.text;
-    final newPassword = newPasswordController.text;
-    final confirmPassword = confirmPasswordController.text;
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'userId': userId,
+          'token': token,
+          'newPassword': password,
+        }),
+      );
 
-    if (email.isNotEmpty &&
-        newPassword.isNotEmpty &&
-        confirmPassword.isNotEmpty) {
-      if (newPassword == confirmPassword) {
-        context.read<AuthCubit>().resetPassword(
-              email: email,
-              newPassword: newPassword,
-              confirmPassword: confirmPassword,
-            );
+      // Close the loading indicator
+      Navigator.pop(context);
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Password reset successfully!'),
+        ));
+        Navigator.popUntil(
+            context, ModalRoute.withName('/login')); // Navigate back to login
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Passwords do not match.'),
+          content: Text('Failed to reset password. Please try again.'),
         ));
       }
-    } else {
+    } catch (error) {
+      // Close the loading indicator
+      Navigator.pop(context);
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Please fill in all fields.'),
+        content: Text('An error occurred: $error'),
       ));
     }
   }
 
-  Widget _buildTextFormField(
-      TextEditingController controller, String label, String hint,
-      {bool obscureText = false, bool isEmail = false}) {
-    return Padding(
-      padding: EdgeInsets.only(left: 10, right: 10),
-      child: TextFormField(
-        controller: controller,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(14),
-          labelText: label,
-          labelStyle: TextStyle(color: maincolor, fontSize: 15),
-          hintText: hint,
-          hintStyle: TextStyle(color: maincolor),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: maincolor),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: maincolor),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: maincolor),
-          ),
+  @override
+  Widget build(BuildContext context) {
+    // Extract arguments passed from the forget password screen
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final token = arguments['token'];
+    final userId = arguments['userId'];
+
+    // Pre-fill userId and token in text fields
+    userIdController.text = userId;
+    tokenController.text = token;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Reset Password'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Display userId
+            TextField(
+              controller: userIdController,
+              decoration: InputDecoration(
+                labelText: "User ID",
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.person),
+              ),
+              readOnly: true, // Make the field read-only
+            ),
+            SizedBox(height: 20),
+            // Display token
+            TextField(
+              controller: tokenController,
+              decoration: InputDecoration(
+                labelText: "Token",
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.security),
+              ),
+              readOnly: true, // Make the field read-only
+            ),
+            SizedBox(height: 20),
+            // New Password Input
+            TextField(
+              controller: passwordController,
+              decoration: InputDecoration(
+                labelText: "New Password",
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.lock),
+              ),
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            // Confirm Password Input
+            TextField(
+              controller: confirmPasswordController,
+              decoration: InputDecoration(
+                labelText: "Confirm Password",
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.lock),
+              ),
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                final newPassword = passwordController.text.trim();
+                final confirmPassword = confirmPasswordController.text.trim();
+
+                if (newPassword.isEmpty || confirmPassword.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('Please enter all fields.'),
+                  ));
+                  return;
+                }
+
+                if (newPassword != confirmPassword) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('Passwords do not match.'),
+                  ));
+                  return;
+                }
+
+                resetPassword(context, userId, token, newPassword);
+              },
+              child: Text("Reset Password"),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50), // Full-width button
+              ),
+            ),
+          ],
         ),
       ),
     );

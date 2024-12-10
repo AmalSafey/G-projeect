@@ -9,6 +9,11 @@ import 'package:flutter_application_graduation/assets/login/verificationcode.dar
 import 'package:flutter_application_graduation/assets/profile/profil.dart';
 import 'package:flutter_application_graduation/home/home.dart';
 import 'package:flutter_application_graduation/register/registerdesign.dart';
+import 'package:flutter_application_graduation/screens/cart.dart';
+import 'package:flutter_application_graduation/screens/favourit.dart';
+import 'package:flutter_application_graduation/screens/hometabscreen.dart';
+import 'package:flutter_application_graduation/screens/profile.dart';
+import 'package:flutter_application_graduation/screens/search.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
@@ -38,7 +43,7 @@ class MyApp extends StatelessWidget {
             backgroundImage:
                 AssetImage('lib/assets/photo_5904657378991784728_y.jpg'),
           ),
-          nextScreen: RegisterDesign(),
+          nextScreen: homescreen(),
         ),
         routes: {
           Logindesign.routname: (context) => Logindesign(),
@@ -54,6 +59,11 @@ class MyApp extends StatelessWidget {
                 cityController: '',
                 phoneNumber: '',
               ),
+          cart.routname: (context) => cart(),
+          favourit.routname: (context) => favourit(),
+          search.routname: (context) => search(),
+          profile.routname: (context) => profile(),
+          hometabscreen.routname: (context) => hometabscreen()
         },
       ),
     );

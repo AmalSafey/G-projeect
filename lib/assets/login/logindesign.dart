@@ -185,7 +185,7 @@ class _LogindesignState extends State<Logindesign> {
       },
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          _showDialog(context, "Registration successful!");
+          _showDialog(context, "Login successful!");
           Future.delayed(Duration(seconds: 2), () {
             // Adjust the duration as needed
             Navigator.pushReplacementNamed(context, homescreen.routname);

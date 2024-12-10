@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/api/abstractclass.dart';
+import 'package:flutter_application_graduation/assets/login/forgetpassword.dart';
 import 'package:http/http.dart' as http;
 
 class AuthCubit extends Cubit<AuthStates> {
@@ -98,45 +99,46 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  Future<void> forgetPassword({required String email}) async {
-    emit(ForgetPasswordLoadingState());
-
+// Function to send forget password request
+  /* Future<void> forgetpassword(String email) async {
+    final url = Uri.parse(forgetPasswordApi); // Replace with your API endpoint
     try {
       final response = await http.post(
-        Uri.parse(forgetPasswordApi),
+        url,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: jsonEncode({"email": email}),
+        body: jsonEncode({'email': email}),
       );
 
-      // Log the response for debugging
-      print("Response status: ${response.statusCode}");
-      print("Response body: ${response.body}");
-
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final String token =
-            data['token']; // Check if 'token' exists in response
-        emit(ForgetPasswordSuccessState(
-          message: "Reset link sent. Token: $token",
-          token: token,
-        ));
-      } else {
-        final errorResponse = jsonDecode(response.body);
-        emit(ForgetPasswordFailedState(
-          message: errorResponse['message'] ?? 'Failed to send reset link.',
-        ));
-      }
-    } catch (e) {
-      print("Error: $e"); // Log the error
-      emit(ForgetPasswordFailedState(
-        message: 'Error: $e',
-      ));
-    }
-  }
+        final responseData = jsonDecode(response.body);
 
-  Future<void> verifyCode({required String code}) async {
+        if (responseData.containsKey('token') &&
+            responseData.containsKey('userId')) {
+          final token = responseData['token'];
+          final userId = responseData['userId'];
+
+          // Handle token and userId (e.g., navigate to reset password screen)
+          print('Token: $token');
+          print('UserId: $userId');
+
+          // You might want to navigate to a reset password screen and pass these values
+          // Navigator.pushNamed(context, '/reset-password', arguments: {'token': token, 'userId': userId});
+        } else {
+          print('Invalid response format.');
+        }
+      } else {
+        print('Error: ${response.statusCode}, ${response.body}');
+      }
+    } catch (error) {
+      print('An error occurred: $error');
+    }
+  }*/
+
+// Example usage
+
+  /* Future<void> verifyCode({required String code}) async {
     emit(VerificationLoadingState());
 
     try {
@@ -161,7 +163,7 @@ class AuthCubit extends Cubit<AuthStates> {
     } catch (e) {
       emit(VerificationFailedState(message: 'Error: $e'));
     }
-  }
+  }*/
 
   // Reset Password
   Future<void> resetPassword({
