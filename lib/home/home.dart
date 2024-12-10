@@ -19,12 +19,25 @@ class _homescreenState extends State<homescreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Builder(builder: (context) {
+          return IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {},
+          );
+        }),
         title: Text(
-          "Homescreen",
-          style: TextStyle(color: Colors.brown),
+          "Innova",
+          style: TextStyle(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
+        actions: [
+          Image.asset("lib/assets/image-13.png"),
+          SizedBox(
+            width: 10,
+          ),
+        ],
       ),
-      backgroundColor: Colors.brown,
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(canvasColor: Colors.white),
         child: BottomNavigationBar(

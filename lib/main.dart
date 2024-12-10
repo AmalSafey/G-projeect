@@ -5,7 +5,6 @@ import 'package:flutter_application_graduation/assets/const.dart';
 import 'package:flutter_application_graduation/assets/login/forgetpassword.dart';
 import 'package:flutter_application_graduation/assets/login/logindesign.dart';
 import 'package:flutter_application_graduation/assets/login/reset.dart';
-import 'package:flutter_application_graduation/assets/login/verificationcode.dart';
 import 'package:flutter_application_graduation/assets/profile/profil.dart';
 import 'package:flutter_application_graduation/home/home.dart';
 import 'package:flutter_application_graduation/register/registerdesign.dart';
