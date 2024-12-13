@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/assets/const.dart';
+import 'package:flutter_application_graduation/customfield/customstack.dart';
 
 class hometabscreen extends StatelessWidget {
   static String routname = "hometabscreen";
@@ -324,7 +325,95 @@ class hometabscreen extends StatelessWidget {
               ],
             ),
           ],
-        )
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Best Selling Products",
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          height: 250,
+          child: ListView.separated(
+            itemCount: 10,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return stacklist();
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return SizedBox(
+                width: 7,
+              );
+            },
+          ),
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Handcraft Carpets",
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          height: 250,
+          child: ListView.separated(
+            itemCount: 10,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return stacklistcart();
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return SizedBox(
+                width: 7,
+              );
+            },
+          ),
+        ),
+        //Explore other products
+        Row(
+          children: [
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "Shop Necklaces",
+              style: TextStyle(fontSize: 18),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Container(
+          height: 250,
+          child: ListView.separated(
+            itemCount: 10,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return stacklisthandmade();
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return SizedBox(
+                width: 7,
+              );
+            },
+          ),
+        ),
       ]),
     ));
   }
