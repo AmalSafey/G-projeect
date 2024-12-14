@@ -34,10 +34,10 @@ class _RegisterDesignState extends State<RegisterDesign> {
 
   // Roles for Dropdown
   final List<Map<String, String>> roles = [
-    {"id": "11c8c40c-169a-40cd-b6c6-b56fa4183b5a", "name": "BusinessOwner"},
-    {"id": "7a5101fd-78f9-4608-a881-bfbb501c822d", "name": "Admin"},
-    {"id": "ac5cc1fb-ba2e-4721-9449-3623242cc160", "name": "Investor"},
-    {"id": "d27aab0b-5c65-4efe-8b29-b8c476568e15", "name": "Customer"},
+    {"id": "61e066a0-056e-48ca-b720-302738a363f0", "name": "BusinessOwner"},
+    {"id": "84537a94-1437-4212-8446-2f35207c097f", "name": "Admin"},
+    {"id": "1fb9855f-3bd0-4b65-a848-419a7f5fceaa", "name": "Investor"},
+    {"id": "f1740269-16fd-41e3-bcdb-30dd4d96f455", "name": "Customer"},
   ];
 
   // Method to show a dialog
@@ -140,24 +140,25 @@ class _RegisterDesignState extends State<RegisterDesign> {
                       },
                     ),
                     _buildTextFormField(
-                      controller: phoneNumberController,
-                      label: 'Phone Number',
-                      hint: 'Enter your phone number',
-                    ),
-                    _buildTextFormField(
-                      controller: countryController,
-                      label: 'Country',
-                      hint: 'Enter your country',
-                    ),
-                    _buildTextFormField(
                       controller: cityController,
                       label: 'City',
                       hint: 'Enter your city',
                     ),
                     _buildTextFormField(
+                      controller: phoneNumberController,
+                      label: 'Phone Number',
+                      hint: 'Enter your phone number',
+                    ),
+
+                    _buildTextFormField(
                       controller: districtController,
                       label: 'District',
                       hint: 'Enter your district',
+                    ),
+                    _buildTextFormField(
+                      controller: countryController,
+                      label: 'Country',
+                      hint: 'Enter your country',
                     ),
                     // Dropdown for Roles
                     _buildDropdownField(),

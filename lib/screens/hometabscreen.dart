@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/assets/const.dart';
 import 'package:flutter_application_graduation/customfield/customstack.dart';
+import 'package:flutter_application_graduation/screens/detailsscreen.dart';
 
 class hometabscreen extends StatelessWidget {
   static String routname = "hometabscreen";
@@ -264,7 +265,7 @@ class hometabscreen extends StatelessWidget {
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Stack(
               children: [
@@ -327,13 +328,24 @@ class hometabscreen extends StatelessWidget {
           ],
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 10,
-            ),
             Text(
-              "Best Selling Products",
+              "Best Selling Products ",
               style: TextStyle(fontSize: 18),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, AllProductsGrid.routname);
+              },
+              child: Text(
+                "Show All >>",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),
@@ -356,18 +368,24 @@ class hometabscreen extends StatelessWidget {
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 10,
+            Text(
+              "Handcrafts Carpets ",
+              style: TextStyle(fontSize: 18),
             ),
             Text(
-              "Handcraft Carpets",
-              style: TextStyle(fontSize: 18),
+              "Show All >>",
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
         SizedBox(
-          height: 20,
+          height: 10,
         ),
         Container(
           height: 250,
@@ -384,15 +402,23 @@ class hometabscreen extends StatelessWidget {
             },
           ),
         ),
-        //Explore other products
+        SizedBox(
+          height: 10,
+        ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 10,
+            Text(
+              "Shop Necles ",
+              style: TextStyle(fontSize: 18),
             ),
             Text(
-              "Shop Necklaces",
-              style: TextStyle(fontSize: 18),
+              "Show All >>",
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),

@@ -9,6 +9,7 @@ import 'package:flutter_application_graduation/assets/profile/profil.dart';
 import 'package:flutter_application_graduation/home/home.dart';
 import 'package:flutter_application_graduation/register/registerdesign.dart';
 import 'package:flutter_application_graduation/screens/cart.dart';
+import 'package:flutter_application_graduation/screens/detailsscreen.dart';
 import 'package:flutter_application_graduation/screens/favourit.dart';
 import 'package:flutter_application_graduation/screens/hometabscreen.dart';
 import 'package:flutter_application_graduation/screens/profile.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           nextScreen: homescreen(),
         ),
         routes: {
+          AllProductsGrid.routname: (context) => AllProductsGrid(),
           Logindesign.routname: (context) => Logindesign(),
           RegisterDesign.routeName: (context) => RegisterDesign(),
           forgetpassword.routname: (context) => forgetpassword(),

@@ -7,13 +7,12 @@ import 'package:flutter_application_graduation/assets/login/forgetpassword.dart'
 import 'package:http/http.dart' as http;
 
 class AuthCubit extends Cubit<AuthStates> {
-  static const String baseUrl =
-      'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Account';
+  static const String baseUrl = 'https://innova-hub.premiumasp.net/api/Account';
   static const String registerApi = '$baseUrl/register';
   static const String loginApi = '$baseUrl/login';
-  static const String forgetPasswordApi =
+  /* static const String forgetPasswordApi =
       'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Profile/generate-token';
-  static const String resetPasswordApi = '$baseUrl/reset-password';
+  static const String resetPasswordApi = '$baseUrl/reset-password';*/
 
   AuthCubit() : super(AuthInitialState());
 
@@ -173,8 +172,9 @@ class AuthCubit extends Cubit<AuthStates> {
   }) async {
     emit(ResetPasswordLoadingState());
 
-    try {
-      final response = await http.post(
+    try {}
+
+    /*final response = await http.post(
         Uri.parse(resetPasswordApi),
         headers: {
           'Content-Type': 'application/json',
@@ -194,7 +194,8 @@ class AuthCubit extends Cubit<AuthStates> {
         emit(ResetPasswordFailedState(
             message: errorResponse['message'] ?? 'Failed to reset password.'));
       }
-    } catch (e) {
+    } */
+    catch (e) {
       emit(ResetPasswordFailedState(message: 'Error: $e'));
     }
   }
