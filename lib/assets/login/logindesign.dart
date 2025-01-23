@@ -29,7 +29,8 @@ class _LogindesignState extends State<Logindesign> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
+              Navigator.pushReplacementNamed(context, homescreen.routname);
+              // Navigator.of(context).pop(); // Close the dialog
             },
             child: Text(
               "OK",
@@ -135,7 +136,7 @@ class _LogindesignState extends State<Logindesign> {
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(
-                                context, forgetpassword.routname);
+                                context, ForgetPassword.routname);
                           },
                           child: Text(
                             "Forget Password",

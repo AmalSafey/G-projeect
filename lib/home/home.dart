@@ -32,7 +32,7 @@ class _homescreenState extends State<homescreen> {
         ),
         centerTitle: true,
         actions: [
-          Image.asset("lib/assets/image-13.png"),
+          Image.asset("lib/assets/photo_5805206243021800533_x.jpg"),
           SizedBox(
             width: 10,
           ),
@@ -94,6 +94,13 @@ class _homescreenState extends State<homescreen> {
     favourit(),
     cart(),
     search(),
-    profile()
+    profile(
+      firstnameController: '',
+      lastnameController: '',
+      emailController: '',
+      passwordController: '',
+      cityController: '',
+      phoneNumber: '',
+    )
   ];
 }

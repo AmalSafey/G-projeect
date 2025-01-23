@@ -16,7 +16,7 @@ class resetpassword extends StatelessWidget {
   Future<void> resetPassword(BuildContext context, String userId, String token,
       String password) async {
     final url = Uri.parse(
-        'https://your-api-endpoint.com/reset-password'); // Replace with your API endpoint
+        'https://innova-hub.premiumasp.net/api/Profile/reset-password'); // Replace with your API endpoint
     try {
       // Show loading indicator
       showDialog(

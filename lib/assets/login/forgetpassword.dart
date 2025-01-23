@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_graduation/assets/login/reset.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_application_graduation/assets/login/reset.dart';
 
-class forgetpassword extends StatelessWidget {
-  static String routname = "forget_password";
-  final TextEditingController emailController = TextEditingController();
+class ForgetPassword extends StatelessWidget {
+  static const String routname = "forget"; // Route name of this screen
+  final email = TextEditingController();
 
-  // Logic for sending forget password request
   Future<void> sendForgetPasswordRequest(
       BuildContext context, String email) async {
     final url = Uri.parse(
-        'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Profile/generate-token'); // Replace with your API endpoint
+        'https://innova-hub.premiumasp.net/api/Profile/generate-token'); // Replace with your API endpoint
     try {
       // Show loading indicator
       showDialog(
@@ -41,7 +40,6 @@ class forgetpassword extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Reset link sent successfully to $email!'),
           ));
-          // Navigate to the reset password screen with token, userId, and email
           Navigator.pushNamed(
             context,
             resetpassword.routname,
@@ -62,9 +60,7 @@ class forgetpassword extends StatelessWidget {
         ));
       }
     } catch (error) {
-      // Close the loading indicator
       Navigator.pop(context);
-
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('An error occurred: $error'),
       ));
@@ -75,61 +71,97 @@ class forgetpassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Forget Password'),
+        title: const Text(
+          'Forgot Password',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 40),
-            Center(
-              child: Text(
-                "Enter your email to reset password",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(height: 20),
-            // Email Input Field
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                labelText: "Email",
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.email),
-              ),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                final email = emailController.text.trim();
-                if (email.isNotEmpty) {
-                  sendForgetPasswordRequest(context, email);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('Please enter your email.'),
-                  ));
-                }
-              },
-              child: Text("Send Reset Link"),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50), // Full-width button
-              ),
-            ),
-            SizedBox(height: 10),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context); // Navigate back to login screen
-                },
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              /*  Image.asset( 
+                'assets/images/forget_password_photo.jpg', 
+                width: double.infinity, 
+                fit: BoxFit.fill, 
+              ), */
+              const SizedBox(height: 30),
+              const Padding(
+                padding: EdgeInsets.only(left: 10),
                 child: Text(
-                  "Back to Login",
-                  style: TextStyle(color: Theme.of(context).primaryColor),
+                  "Forgot Password!",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              const Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Enter your email now",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: email,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  hintText: 'Enter Your Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  prefixIcon: Icon(Icons.email),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    final userEmail = email.text.trim();
+                    if (userEmail.isNotEmpty) {
+                      sendForgetPasswordRequest(context, userEmail);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Please enter your email.'),
+                      ));
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 13.0),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                  ),
+                  child: const Text(
+                    'Send',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

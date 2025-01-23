@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/assets/const.dart';
 import 'package:flutter_application_graduation/customfield/customstack.dart';
 
-class AllProductsGrid extends StatelessWidget {
-  static String routname = "AllProductsGrid";
+class AllProductsGridcards extends StatelessWidget {
+  static String routname = "AllProductsGridcards";
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class AllProductsGrid extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                "Best Selling Products",
+                "Handcrafts Carpets",
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -225,7 +225,7 @@ class AllProductsGrid extends StatelessWidget {
               ),
               itemCount: 20, // Total number of items in the grid
               itemBuilder: (context, index) {
-                return stacklist();
+                return stacklistcart();
               },
             ),
           ],

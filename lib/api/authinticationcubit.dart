@@ -10,9 +10,10 @@ class AuthCubit extends Cubit<AuthStates> {
   static const String baseUrl = 'https://innova-hub.premiumasp.net/api/Account';
   static const String registerApi = '$baseUrl/register';
   static const String loginApi = '$baseUrl/login';
-  /* static const String forgetPasswordApi =
-      'https://innovahub-d3etetfzh6ada8aq.uaenorth-01.azurewebsites.net/api/Profile/generate-token';
-  static const String resetPasswordApi = '$baseUrl/reset-password';*/
+  static const String forgetPasswordApi =
+      'https://innova-hub.premiumasp.net/api/Profile/generate-token';
+  static const String resetPasswordApi =
+      'https://innova-hub.premiumasp.net/api/Profile/reset-password';
 
   AuthCubit() : super(AuthInitialState());
 
@@ -133,11 +134,11 @@ class AuthCubit extends Cubit<AuthStates> {
     } catch (error) {
       print('An error occurred: $error');
     }
-  }*/
+  }
 
 // Example usage
 
-  /* Future<void> verifyCode({required String code}) async {
+  Future<void> verifyCode({required String code}) async {
     emit(VerificationLoadingState());
 
     try {
@@ -162,8 +163,8 @@ class AuthCubit extends Cubit<AuthStates> {
     } catch (e) {
       emit(VerificationFailedState(message: 'Error: $e'));
     }
-  }*/
-
+  }
+*/
   // Reset Password
   Future<void> resetPassword({
     required String email,
@@ -172,9 +173,8 @@ class AuthCubit extends Cubit<AuthStates> {
   }) async {
     emit(ResetPasswordLoadingState());
 
-    try {}
-
-    /*final response = await http.post(
+    try {
+      final response = await http.post(
         Uri.parse(resetPasswordApi),
         headers: {
           'Content-Type': 'application/json',
@@ -194,8 +194,7 @@ class AuthCubit extends Cubit<AuthStates> {
         emit(ResetPasswordFailedState(
             message: errorResponse['message'] ?? 'Failed to reset password.'));
       }
-    } */
-    catch (e) {
+    } catch (e) {
       emit(ResetPasswordFailedState(message: 'Error: $e'));
     }
   }

@@ -76,6 +76,9 @@ flutter:
     - lib/assets/image-8.png
     - lib/assets/image-10.png
     - lib/assets/image-11.png
+    - lib/assets/photo_5805206243021800509_x.jpg
+    - lib/assets/photo_5805206243021800533_x.jpg
+    - lib/assets/photo_5805206243021800532_x.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -3,6 +3,8 @@ import 'package:flutter_application_graduation/api/abstractclass.dart';
 import 'package:flutter_application_graduation/api/authinticationcubit.dart';
 import 'package:flutter_application_graduation/assets/login/logindesign.dart';
 import 'package:flutter_application_graduation/home/home.dart';
+import 'package:flutter_application_graduation/screens/hometabscreen.dart';
+import 'package:flutter_application_graduation/screens/ownerdetails.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterDesign extends StatefulWidget {
@@ -45,13 +47,7 @@ class _RegisterDesignState extends State<RegisterDesign> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        content: Text(
-          message,
-          style: TextStyle(
-            color: Color.fromARGB(255, 112, 182, 182),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        content: Text(message),
         actions: [
           TextButton(
             onPressed: () {
@@ -76,10 +72,10 @@ class _RegisterDesignState extends State<RegisterDesign> {
       listener: (context, state) {
         if (state is RegisterSuccessState) {
           _showDialog(context, "Registration successful!");
-          Future.delayed(Duration(seconds: 2), () {
+          /* Future.delayed(Duration(seconds: 2), () {
             // Adjust the duration as needed
             Navigator.pushReplacementNamed(context, homescreen.routname);
-          });
+          });*/
         } else if (state is RegisterFailedState) {
           _showDialog(context, "Some thing Went Wrong");
         }
@@ -180,10 +176,10 @@ class _RegisterDesignState extends State<RegisterDesign> {
 
   Widget _buildSubmitButton(BuildContext context, AuthStates state) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (_formKey.currentState!.validate()) {
           // Call the register method from the AuthCubit
-          context.read<AuthCubit>().register(
+          await context.read<AuthCubit>().register(
                 firstName: firstnameController.text,
                 lastName: lastnameController.text,
                 email: emailController.text,
@@ -195,6 +191,23 @@ class _RegisterDesignState extends State<RegisterDesign> {
                 phoneNumber: phoneNumberController.text,
                 roleId: selectedRoleId!,
               );
+
+          // Role-based navigation
+          if (selectedRoleId == "61e066a0-056e-48ca-b720-302738a363f0") {
+            // BusinessOwner
+            Navigator.pushNamed(context, ownerdetails.routname);
+          } else if (selectedRoleId == "1fb9855f-3bd0-4b65-a848-419a7f5fceaa") {
+            // Investor
+            Navigator.pushNamed(context, ownerdetails.routname);
+          } else if (selectedRoleId == "f1740269-16fd-41e3-bcdb-30dd4d96f455") {
+            // Customer
+            Navigator.pushNamed(context, hometabscreen.routname);
+          } else {
+            // Default or error handling (optional)
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Invalid role selected')),
+            );
+          }
         }
       },
       style: ElevatedButton.styleFrom(
