@@ -53,7 +53,7 @@ class AuthCubit extends Cubit<AuthStates> {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        emit(RegisterSuccessState());
+        emit(RegisterSuccessState(messagesuccess: 'Register Success'));
       } else {
         final errorResponse = jsonDecode(response.body);
         emit(RegisterFailedState(

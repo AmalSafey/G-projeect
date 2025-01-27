@@ -5,6 +5,7 @@ import 'package:flutter_application_graduation/screens/contract.dart';
 import 'package:flutter_application_graduation/screens/detailspageforownerandinvestor.dart';
 import 'package:flutter_application_graduation/screens/detailsscreen.dart';
 import 'package:flutter_application_graduation/screens/detailsscreencard.dart';
+import 'package:flutter_application_graduation/screens/profile.dart';
 import 'package:flutter_application_graduation/screens/profileinvestor.dart';
 import 'package:flutter_application_graduation/screens/searchinvestor.dart';
 import 'package:flutter_application_graduation/screens/shopnecles.dart';
@@ -23,7 +24,15 @@ class _ownerdetailsState extends State<ownerdetails> {
     add(),
     contract(),
     searchinvestor(),
-    profileinvestor()
+    profile(
+      firstnameController: '',
+      lastnameController: '',
+      emailController: '',
+      passwordController: '',
+      cityController: '',
+      phoneNumber: '',
+      role: '',
+    )
   ];
 
   @override

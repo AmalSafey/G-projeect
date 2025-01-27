@@ -4,6 +4,7 @@ import 'package:flutter_application_graduation/screens/cart.dart';
 import 'package:flutter_application_graduation/screens/detailsfirstbageforcustomer.dart';
 
 import 'package:flutter_application_graduation/screens/favourit.dart';
+import 'package:flutter_application_graduation/screens/profile.dart';
 import 'package:flutter_application_graduation/screens/search.dart';
 
 class hometabscreen extends StatefulWidget {
@@ -19,6 +20,15 @@ class _hometabscreenState extends State<hometabscreen> {
     favourit(),
     cart(),
     search(),
+    profile(
+      firstnameController: '',
+      lastnameController: '',
+      emailController: '',
+      passwordController: '',
+      cityController: '',
+      phoneNumber: '',
+      role: '',
+    )
   ];
   int select = 0;
 

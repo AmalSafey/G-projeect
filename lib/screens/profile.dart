@@ -1,18 +1,9 @@
-/*import 'package:flutter/material.dart';
-
-class profile extends StatelessWidget {
-  static String routname = "profile";
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue,
-    );
-  }
-}*/
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_graduation/assets/const.dart';
 import 'package:image_picker/image_picker.dart';
+
+const Color maincolor = Color.fromARGB(255, 6, 122, 216); // لون رئيسي
+const Color textcolor = Colors.black; // لون النصوص
 
 class profile extends StatefulWidget {
   static String routeName = "profiledesign";
@@ -22,16 +13,18 @@ class profile extends StatefulWidget {
   final String passwordController;
   final String cityController;
   final String phoneNumber;
+  final String role;
 
-  const profile({
-    Key? key,
-    required this.firstnameController,
-    required this.lastnameController,
-    required this.emailController,
-    required this.passwordController,
-    required this.cityController,
-    required this.phoneNumber,
-  }) : super(key: key);
+  const profile(
+      {Key? key,
+      required this.firstnameController,
+      required this.lastnameController,
+      required this.emailController,
+      required this.passwordController,
+      required this.cityController,
+      required this.phoneNumber,
+      required this.role})
+      : super(key: key);
 
   @override
   State<profile> createState() => _ProfileDesignState();
@@ -46,6 +39,7 @@ class _ProfileDesignState extends State<profile> {
   late TextEditingController _passwordController;
   late TextEditingController _cityController;
   late TextEditingController _phoneController;
+  late TextEditingController _roleController;
 
   bool _isEditing = false;
 
@@ -61,6 +55,7 @@ class _ProfileDesignState extends State<profile> {
         TextEditingController(text: widget.passwordController);
     _cityController = TextEditingController(text: widget.cityController);
     _phoneController = TextEditingController(text: widget.phoneNumber);
+    _roleController = TextEditingController(text: widget.role);
   }
 
   Future<void> _pickImage() async {
@@ -88,100 +83,212 @@ class _ProfileDesignState extends State<profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(
-              "Profile",
-              style: TextStyle(
-                color: textcolor,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            const SizedBox(height: 25),
+            // Profile Header
+            Container(
+              width: double.infinity,
+              height: 200,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image:
+                      AssetImage('lib/assets/photo_5816892861919119516_y.jpg'),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 60,
-                    backgroundImage: _profileImage != null
-                        ? FileImage(_profileImage!)
-                        : null,
-                    child: _profileImage == null
-                        ? const Icon(Icons.person, size: 60, color: Colors.grey)
-                        : null,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: GestureDetector(
-                      onTap: _pickImage,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: textcolor,
-                        ),
-                        padding: const EdgeInsets.all(8),
-                        child: const Icon(
-                          Icons.camera_alt,
-                          color: Colors.white,
+              child: Center(
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundImage: _profileImage != null
+                          ? FileImage(_profileImage!)
+                          : null,
+                      backgroundColor: Colors.grey[200],
+                      child: _profileImage == null
+                          ? const Icon(Icons.person,
+                              size: 60, color: Colors.grey)
+                          : null,
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: GestureDetector(
+                        onTap: _pickImage,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          child: const Icon(
+                            Icons.edit,
+                            color: maincolor,
+                          ),
                         ),
                       ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+            // User Info Section
+            Container(
+              width: double.infinity,
+              height: 60,
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+                borderRadius:
+                    BorderRadius.only(bottomRight: Radius.circular(100)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      "Malak Hamed",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
+                    Text(
+                      "ID : 123465678",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Profile Fields Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: _buildProfileField("Email  ", _emailController),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isEditing = !_isEditing;
+                          });
+                        },
+                        icon: Icon(
+                          _isEditing ? Icons.check : Icons.edit,
+                          color: Colors.blue,
+                        ),
+                        iconSize: 25,
+                      ),
+                    ],
+                  ),
+                  _buildProfileField("Phone Number  ", _phoneController),
+                  _buildProfileField("Discret   ", _phoneController),
+                  _buildProfileField("City  ", _cityController),
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 1,
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
-            _buildProfileField("First Name", _firstnameController),
-            _buildProfileField("Last Name", _lastnameController),
-            _buildProfileField("Email", _emailController),
-            _buildProfileField("Password", _passwordController,
-                obscureText: true),
-            _buildProfileField("City", _cityController),
-            _buildProfileField("Phone Number", _phoneController),
-            const SizedBox(height: 30),
-            /*
-             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: textcolor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                child: ListTile(
+                  leading: const Icon(Icons.lock, color: Colors.blue),
+                  title: const Text(
+                    " Privicy & Security",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () {
+                    // Log out logic
+                  },
+                ),
               ),
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                      content: Text('Profile updated successfully!')),
-                );
-
-                // Perform save logic here
-                print("First Name: ${_firstnameController.text}");
-                print("Last Name: ${_lastnameController.text}");
-                print("Email: ${_emailController.text}");
-                print("City: ${_cityController.text}");
-                print("Phone: ${_phoneController.text}");
-              },
-              child: Text(
-                "Save Changes",
-                style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListTile(
+                  leading: const Icon(Icons.payment, color: Colors.blue),
+                  title: const Text(
+                    "Payment Method",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () {
+                    // Log out logic
+                  },
+                ),
               ),
-            ),*/
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            // Logout Button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListTile(
+                  title: Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center, // جعل العناصر في المنتصف
+                    children: [
+                      Icon(Icons.login_outlined, color: Colors.blue),
+                      const SizedBox(
+                          width: 8), // إضافة مسافة بين الأيقونة والنص
+                      const Text(
+                        "Log Out",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () {
+                    // Log out logic
+                  },
+                ),
+              ),
+            ),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _isEditing = !_isEditing;
-          });
-        },
-        child: Icon(
-          _isEditing ? Icons.check : Icons.edit,
-          color: maincolor,
         ),
       ),
     );
@@ -207,9 +314,9 @@ class _ProfileDesignState extends State<profile> {
                 Expanded(
                   child: Text(
                     "$label: ${controller.text}",
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: maincolor,
+                    style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.blue,
                         fontWeight: FontWeight.bold),
                   ),
                 ),

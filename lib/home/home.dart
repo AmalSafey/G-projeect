@@ -101,6 +101,7 @@ class _homescreenState extends State<homescreen> {
       passwordController: '',
       cityController: '',
       phoneNumber: '',
+      role: '',
     )
   ];
 }

@@ -5,6 +5,7 @@ import 'package:flutter_application_graduation/assets/login/logindesign.dart';
 import 'package:flutter_application_graduation/home/home.dart';
 import 'package:flutter_application_graduation/screens/hometabscreen.dart';
 import 'package:flutter_application_graduation/screens/ownerdetails.dart';
+import 'package:flutter_application_graduation/screens/profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterDesign extends StatefulWidget {
@@ -70,15 +71,15 @@ class _RegisterDesignState extends State<RegisterDesign> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
-        if (state is RegisterSuccessState) {
+        /* if (state is RegisterSuccessState) {
           _showDialog(context, "Registration successful!");
-          /* Future.delayed(Duration(seconds: 2), () {
+          Future.delayed(Duration(seconds: 2), () {
             // Adjust the duration as needed
             Navigator.pushReplacementNamed(context, homescreen.routname);
-          });*/
+          });
         } else if (state is RegisterFailedState) {
           _showDialog(context, "Some thing Went Wrong");
-        }
+        }*/
       },
       builder: (context, state) {
         return Scaffold(
@@ -191,6 +192,20 @@ class _RegisterDesignState extends State<RegisterDesign> {
                 phoneNumber: phoneNumberController.text,
                 roleId: selectedRoleId!,
               );
+          /*  Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => profile(
+                firstnameController: firstnameController.text,
+                lastnameController: lastnameController.text,
+                emailController: emailController.text,
+                passwordController: passwordController.text,
+                cityController: cityController.text,
+                phoneNumber: phoneNumberController.text,
+                role: selectedRoleId!,
+              ),
+            ),
+          );*/
 
           // Role-based navigation
           if (selectedRoleId == "61e066a0-056e-48ca-b720-302738a363f0") {

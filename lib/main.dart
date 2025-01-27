@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        color: maincolor,
         home: AnimatedSplashScreen(
           backgroundColor: const Color.fromARGB(255, 112, 182, 182),
           splashIconSize: 450,
@@ -90,6 +89,7 @@ class MyApp extends StatelessWidget {
                 passwordController: '',
                 cityController: '',
                 phoneNumber: '',
+                role: '',
               ),
           hometabscreen.routname: (context) => hometabscreen()
         },
