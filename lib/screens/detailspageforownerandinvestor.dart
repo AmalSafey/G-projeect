@@ -347,7 +347,7 @@ class Detailspageforownerandinvestor extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Container(
+          /* Container(
             height: 250,
             child: ListView.separated(
               itemCount: 10,
@@ -361,7 +361,7 @@ class Detailspageforownerandinvestor extends StatelessWidget {
                 );
               },
             ),
-          ),
+          ),*/
           SizedBox(
             height: 10,
           ),
