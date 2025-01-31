@@ -56,7 +56,15 @@ class MyApp extends StatelessWidget {
         routes: {
           Detailspageforownerandinvestor.routname: (context) =>
               Detailspageforownerandinvestor(),
-          profileinvestor.routname: (context) => profileinvestor(),
+          profileinvestordessign.routeName: (context) => profileinvestordessign(
+                firstnameController: '',
+                emailController: '',
+                lastnameController: '',
+                passwordController: '',
+                cityController: '',
+                phoneNumber: '',
+                role: '',
+              ),
           searchinvestor.routname: (context) => searchinvestor(),
           add.routname: (context) => add(),
           contract.routname: (context) => contract(),
@@ -71,14 +79,6 @@ class MyApp extends StatelessWidget {
           ForgetPassword.routname: (context) => ForgetPassword(),
           resetpassword.routname: (context) => resetpassword(),
           homescreen.routname: (context) => homescreen(),
-          profiledesign.routeName: (context) => profiledesign(
-                firstnameController: '',
-                emailController: '',
-                lastnameController: '',
-                passwordController: '',
-                cityController: '',
-                phoneNumber: '',
-              ),
           cart.routname: (context) => cart(),
           favourit.routname: (context) => favourit(),
           search.routname: (context) => search(),

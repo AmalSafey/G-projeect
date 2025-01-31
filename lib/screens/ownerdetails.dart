@@ -24,7 +24,7 @@ class _ownerdetailsState extends State<ownerdetails> {
     add(),
     contract(),
     searchinvestor(),
-    profile(
+    profileinvestordessign(
       firstnameController: '',
       lastnameController: '',
       emailController: '',
