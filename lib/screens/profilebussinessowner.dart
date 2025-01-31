@@ -332,12 +332,10 @@ class _ProfileDesignState extends State<profilebussinessowner> {
                 ),
                 child: ListTile(
                   title: Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.center, // جعل العناصر في المنتصف
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.login_outlined, color: Colors.blue),
-                      const SizedBox(
-                          width: 8), // إضافة مسافة بين الأيقونة والنص
+                      const SizedBox(width: 8), //
                       const Text(
                         "Log Out",
                         style: TextStyle(fontSize: 16),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_graduation/screens/privacyandsecurityforcustomer.dart';
 import 'package:image_picker/image_picker.dart';
 
 const Color maincolor = Color.fromARGB(255, 6, 122, 216); // لون رئيسي
@@ -215,10 +216,16 @@ class _ProfileDesignState extends State<profile> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: const Icon(Icons.lock, color: Colors.blue),
-                  title: const Text(
-                    " Privicy & Security",
-                    style: TextStyle(fontSize: 16),
+                  leading: Icon(Icons.lock, color: Colors.blue),
+                  title: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, privacyandsecurityforcustomer.routname);
+                    },
+                    child: Text(
+                      " Privicy & Security",
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                   onTap: () {
