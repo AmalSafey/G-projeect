@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_graduation/api/apibase.dart';
+import 'package:flutter_application_graduation/api/apiforcatigories.dart';
 import 'package:flutter_application_graduation/assets/const.dart';
 import 'package:flutter_application_graduation/customfield/customstack.dart';
 
@@ -211,23 +213,43 @@ class shopnecles extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            GridView.builder(
-              padding: EdgeInsets.all(10),
-              shrinkWrap:
-                  true, // Ensures GridView takes only as much space as needed
-              physics:
-                  NeverScrollableScrollPhysics(), // Disable internal scrolling
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Number of columns in the grid
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 3 / 4, // Aspect ratio of each grid item
-              ),
-              itemCount: 20, // Total number of items in the grid
-              itemBuilder: (context, index) {
-                return stacklisthandmade();
-              },
-            ),
+            FutureBuilder<CategoryModel>(
+                future: ApiManagercatigory.fetchCategoryrangs(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text("Error: ${snapshot.error}"));
+                  } else {
+                    final category = snapshot.data!;
+                    final products = category.products;
+
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: GridView.builder(
+                            padding: EdgeInsets.all(10),
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 3 / 4,
+                            ),
+                            itemCount: products.length,
+                            itemBuilder: (context, index) {
+                              return stacklisthandmade(
+                                  pro: products[index]); // تمرير المنتج
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                }),
           ],
         ),
       ),

@@ -195,9 +195,70 @@ class stacklistcart extends StatelessWidget {
 }
 */
 class stacklisthandmade extends StatelessWidget {
+  final ProductModel pro;
+  stacklisthandmade({required this.pro});
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
+    return Stack(
+      children: [
+        Container(
+          height: 400,
+          width: 200,
+          color: Colors.white,
+        ),
+        Image.network(
+          pro.homeImage,
+          height: 120,
+          width: 160,
+          fit: BoxFit.cover,
+        ),
+        Positioned(
+          bottom: 10,
+          left: 10,
+          right: 10,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                pro.name,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                "Made by ${pro.author}",
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
+              Text(
+                "\$${pro.price.toStringAsFixed(2)}",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              Row(
+                children: [
+                  Icon(Icons.favorite_border_outlined),
+                  Icon(Icons.shopping_cart),
+                  SizedBox(width: 20),
+                  Icon(
+                    Icons.check,
+                    color: pro.isAvailable ? Colors.green : Colors.red,
+                  ),
+                  Text(pro.isAvailable ? " In stock" : " Out of stock")
+                ],
+              ),
+              Row(
+                children: List.generate(5, (starIndex) {
+                  return Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  );
+                })
+                  ..add(Text("4521")), // Placeholder rating count
+              )
+            ],
+          ),
+        )
+      ],
+    );
+    /*Stack(children: [
       Container(
         height: 200,
         width: 113,
@@ -250,6 +311,6 @@ class stacklisthandmade extends StatelessWidget {
           ],
         ),
       )
-    ]);
+    ]);*/
   }
 }

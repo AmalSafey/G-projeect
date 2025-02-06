@@ -1,11 +1,9 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/api/authinticationcubit.dart';
-import 'package:flutter_application_graduation/assets/const.dart';
 import 'package:flutter_application_graduation/assets/login/forgetpassword.dart';
 import 'package:flutter_application_graduation/assets/login/logindesign.dart';
 import 'package:flutter_application_graduation/assets/login/reset.dart';
-import 'package:flutter_application_graduation/assets/profile/profil.dart';
 import 'package:flutter_application_graduation/home/home.dart';
 import 'package:flutter_application_graduation/register/registerdesign.dart';
 import 'package:flutter_application_graduation/screens/add.dart';

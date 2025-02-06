@@ -20,7 +20,7 @@ class ApiManagercatigory {
 
   static Future<CategoryModel> fetchCategory() async {
     final response = await http.get(Uri.parse(
-        'https://innova-hub.premiumasp.net/api/Category/getProductsByCategory/1'));
+        'https://innova-hub.premiumasp.net/api/Category/getProductsByCategory/21'));
 
     if (response.statusCode == 200) {
       return CategoryModel.fromJson(json.decode(response.body));
@@ -31,7 +31,55 @@ class ApiManagercatigory {
 
   static Future<List<ProductModel>> fetchCarpetProducts() async {
     final response = await http.get(Uri.parse(
-        'https://innova-hub.premiumasp.net/api/Category/getProductsByCategory/1'));
+        'https://innova-hub.premiumasp.net/api/Category/getProductsByCategory/21'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      CategoryModel category = CategoryModel.fromJson(data);
+      return category.products; // Returning the list of products
+    } else {
+      throw Exception('Failed to load products');
+    }
+  }
+
+  static Future<CategoryModel> fetchCategoryrangs() async {
+    final response = await http.get(Uri.parse(
+        'https://innova-hub.premiumasp.net/api/Category/getProductsByCategory/22'));
+
+    if (response.statusCode == 200) {
+      return CategoryModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load category');
+    }
+  }
+
+  static Future<List<ProductModel>> fetchRingsProducts() async {
+    final response = await http.get(Uri.parse(
+        'https://innova-hub.premiumasp.net/api/Category/getProductsByCategory/22'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      CategoryModel category = CategoryModel.fromJson(data);
+      return category.products; // Returning the list of products
+    } else {
+      throw Exception('Failed to load products');
+    }
+  }
+
+  static Future<CategoryModel> fetchCategorybags() async {
+    final response = await http.get(Uri.parse(
+        'https://innova-hub.premiumasp.net/api/Category/getProductsByCategory/3'));
+
+    if (response.statusCode == 200) {
+      return CategoryModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load category');
+    }
+  }
+
+  static Future<List<ProductModel>> fetchBagesProducts() async {
+    final response = await http.get(Uri.parse(
+        'https://innova-hub.premiumasp.net/api/Category/getProductsByCategory/3'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

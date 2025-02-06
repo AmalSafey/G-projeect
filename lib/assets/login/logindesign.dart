@@ -15,7 +15,8 @@ class Logindesign extends StatefulWidget {
 }
 
 class _LogindesignState extends State<Logindesign> {
-  void _showDialog(BuildContext context, String message) {
+  void _showDialog(BuildContext context, String message,
+      {VoidCallback? onClose}) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -29,8 +30,10 @@ class _LogindesignState extends State<Logindesign> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, homescreen.routname);
-              // Navigator.of(context).pop(); // Close the dialog
+              Navigator.of(context).pop(); // يغلق التنبيه فقط
+              if (onClose != null) {
+                onClose(); // يتم تنفيذ هذا فقط إذا كان هناك إجراء معين بعد الإغلاق
+              }
             },
             child: Text(
               "OK",
@@ -186,10 +189,10 @@ class _LogindesignState extends State<Logindesign> {
       },
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          _showDialog(context, "Login successful!");
-          Future.delayed(Duration(seconds: 2), () {
-            // Adjust the duration as needed
-            Navigator.pushReplacementNamed(context, homescreen.routname);
+          _showDialog(context, "Login successful!", onClose: () {
+            Future.microtask(() {
+              Navigator.pushReplacementNamed(context, homescreen.routname);
+            });
           });
         } else if (state is LoginFailedState) {
           _showDialog(context, state.message);

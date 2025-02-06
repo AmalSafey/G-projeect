@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/api/apibase.dart';
 import 'package:flutter_application_graduation/api/apiforcatigories.dart';
+import 'package:flutter_application_graduation/screens/detailsscreen.dart';
 
 class containerrefactor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 75,
+        height: 100,
         width: double.infinity,
-        color: const Color.fromARGB(255, 150, 200, 241),
+        color: const Color.fromRGBO(150, 200, 241, 1),
         child: FutureBuilder<List<String>>(
           future: ApiManagercatigory.getallitems(),
           builder: (context, snapshot) {
@@ -31,9 +32,15 @@ class containerrefactor extends StatelessWidget {
                   spacing: 10.0,
                   runSpacing: 10.0,
                   children: categories
-                      .map((category) => Text(category,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)))
+                      .map((category) => InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, AllProductsGrid.routname);
+                            },
+                            child: Text(category,
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold)),
+                          ))
                       .toList(),
                 ),
               ],

@@ -390,13 +390,13 @@ class Detailspageforownerandinvestor extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Container(
+          /*  Container(
             height: 250,
             child: ListView.separated(
               itemCount: 10,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return stacklisthandmade();
+                return stacklisthandmade(pro: [index]);
               },
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(
@@ -404,7 +404,7 @@ class Detailspageforownerandinvestor extends StatelessWidget {
                 );
               },
             ),
-          ),
+          ),*/
         ],
       ),
     );

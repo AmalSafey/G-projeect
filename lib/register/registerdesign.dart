@@ -37,14 +37,15 @@ class _RegisterDesignState extends State<RegisterDesign> {
 
   // Roles for Dropdown
   final List<Map<String, String>> roles = [
-    {"id": "61e066a0-056e-48ca-b720-302738a363f0", "name": "BusinessOwner"},
-    {"id": "84537a94-1437-4212-8446-2f35207c097f", "name": "Admin"},
-    {"id": "1fb9855f-3bd0-4b65-a848-419a7f5fceaa", "name": "Investor"},
-    {"id": "f1740269-16fd-41e3-bcdb-30dd4d96f455", "name": "Customer"},
+    {"id": "ec1069f3-96e7-4874-bf09-f290b7ed3038", "name": "BusinessOwner"},
+    {"id": "2d666651-3f2f-4d7e-b213-7686cfdc55af", "name": "Admin"},
+    {"id": "cb4406e8-fdf1-4aa7-b1aa-dd90ef59d4f1", "name": "Investor"},
+    {"id": "444ca529-58cc-4ca5-b746-19d3f47796e2", "name": "Customer"},
   ];
 
   // Method to show a dialog
-  void _showDialog(BuildContext context, String message) {
+  void _showDialog(BuildContext context, String message,
+      {VoidCallback? onClose}) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -52,7 +53,10 @@ class _RegisterDesignState extends State<RegisterDesign> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
+              Navigator.of(context).pop(); // إغلاق الـ Dialog
+              if (onClose != null) {
+                onClose(); // تنفيذ الإجراء بعد إغلاق التنبيه
+              }
             },
             child: Text(
               "OK",
@@ -71,15 +75,35 @@ class _RegisterDesignState extends State<RegisterDesign> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
-        /* if (state is RegisterSuccessState) {
-          _showDialog(context, "Registration successful!");
-          Future.delayed(Duration(seconds: 2), () {
-            // Adjust the duration as needed
-            Navigator.pushReplacementNamed(context, homescreen.routname);
+        print("Current state: $state");
+
+        if (state is RegisterSuccessState) {
+          // Role-based navigation
+          if (selectedRoleId == "ec1069f3-96e7-4874-bf09-f290b7ed3038") {
+            // BusinessOwner
+            Navigator.pushNamed(context, ownerdetails.routname);
+          } else if (selectedRoleId == "ec1069f3-96e7-4874-bf09-f290b7ed3038") {
+            // Investor
+            Navigator.pushNamed(context, ownerdetails.routname);
+          } else if (selectedRoleId == "444ca529-58cc-4ca5-b746-19d3f47796e2") {
+            // Customer
+            Navigator.pushNamed(context, hometabscreen.routname);
+          } else {
+            // Default or error handling (optional)
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Invalid role selected')),
+            );
+          }
+          _showDialog(context, state.messagesuccess, onClose: () {
+            Future.microtask(() {
+              Navigator.pushReplacementNamed(context, homescreen.routname);
+            });
           });
         } else if (state is RegisterFailedState) {
-          _showDialog(context, "Some thing Went Wrong");
-        }*/
+          print("Registration failed, staying on the same page.");
+
+          _showDialog(context, state.message);
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -192,37 +216,6 @@ class _RegisterDesignState extends State<RegisterDesign> {
                 phoneNumber: phoneNumberController.text,
                 roleId: selectedRoleId!,
               );
-          /*  Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => profile(
-                firstnameController: firstnameController.text,
-                lastnameController: lastnameController.text,
-                emailController: emailController.text,
-                passwordController: passwordController.text,
-                cityController: cityController.text,
-                phoneNumber: phoneNumberController.text,
-                role: selectedRoleId!,
-              ),
-            ),
-          );*/
-
-          // Role-based navigation
-          if (selectedRoleId == "61e066a0-056e-48ca-b720-302738a363f0") {
-            // BusinessOwner
-            Navigator.pushNamed(context, ownerdetails.routname);
-          } else if (selectedRoleId == "1fb9855f-3bd0-4b65-a848-419a7f5fceaa") {
-            // Investor
-            Navigator.pushNamed(context, ownerdetails.routname);
-          } else if (selectedRoleId == "f1740269-16fd-41e3-bcdb-30dd4d96f455") {
-            // Customer
-            Navigator.pushNamed(context, hometabscreen.routname);
-          } else {
-            // Default or error handling (optional)
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Invalid role selected')),
-            );
-          }
         }
       },
       style: ElevatedButton.styleFrom(
