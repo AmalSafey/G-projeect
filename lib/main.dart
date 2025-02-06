@@ -18,6 +18,7 @@ import 'package:flutter_application_graduation/screens/detailsscreencard.dart';
 import 'package:flutter_application_graduation/screens/favourit.dart';
 import 'package:flutter_application_graduation/screens/hometabscreen.dart';
 import 'package:flutter_application_graduation/screens/ownerdetails.dart';
+import 'package:flutter_application_graduation/screens/privacyandsceurityforbussinessowner.dart';
 import 'package:flutter_application_graduation/screens/privacyandsecurityforcustomer.dart';
 import 'package:flutter_application_graduation/screens/profile.dart';
 import 'package:flutter_application_graduation/screens/profilebussinessowner.dart';
@@ -56,6 +57,8 @@ class MyApp extends StatelessWidget {
           nextScreen: RegisterDesign(),
         ),
         routes: {
+          privacyandsecurityforownerandinvestor.routname: (context) =>
+              privacyandsecurityforownerandinvestor(),
           privacyandsecurityforcustomer.routname: (context) =>
               privacyandsecurityforcustomer(),
           profilebussinessowner.routeName: (context) => profilebussinessowner(
