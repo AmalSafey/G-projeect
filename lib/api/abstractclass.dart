@@ -18,8 +18,16 @@ class RegisterFailedState extends AuthStates {
 }
 
 class LoginSuccessState extends AuthStates {
-  String Message;
-  LoginSuccessState({required this.Message});
+  final String message;
+  final String token; //
+  final String userId;
+  final String role;
+
+  LoginSuccessState(
+      {required this.message,
+      required this.token,
+      required this.userId,
+      required this.role});
 }
 
 class LoginLoadingState extends AuthStates {}

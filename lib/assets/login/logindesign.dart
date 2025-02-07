@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/api/abstractclass.dart';
 import 'package:flutter_application_graduation/assets/const.dart';
 import 'package:flutter_application_graduation/assets/login/forgetpassword.dart';
@@ -256,6 +256,147 @@ class _LogindesignState extends State<Logindesign> {
           return null;
         },
       ),
+    );
+  }
+}
+*/
+import 'package:flutter/material.dart';
+import 'package:flutter_application_graduation/api/abstractclass.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_application_graduation/api/authinticationcubit.dart';
+import 'package:flutter_application_graduation/assets/const.dart';
+import 'package:flutter_application_graduation/assets/login/forgetpassword.dart';
+import 'package:flutter_application_graduation/home/home.dart';
+import 'package:flutter_application_graduation/register/registerdesign.dart';
+
+class Logindesign extends StatefulWidget {
+  static String routname = "Login";
+
+  @override
+  State<Logindesign> createState() => _LogindesignState();
+}
+
+class _LogindesignState extends State<Logindesign> {
+  final email = TextEditingController();
+  final password = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  void _showDialog(BuildContext context, String message,
+      {VoidCallback? onClose}) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Text(
+          message,
+          style: TextStyle(
+            color: Color.fromARGB(255, 112, 182, 182),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              if (onClose != null) {
+                onClose();
+              }
+            },
+            child: Text(
+              "OK",
+              style: TextStyle(
+                color: Color.fromARGB(255, 112, 182, 182),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<AuthCubit, AuthStates>(
+      listener: (context, state) {
+        if (state is LoginSuccessState) {
+          print("✅ Login successful! Token: ${state.token}");
+
+          _showDialog(context, "Login successful!", onClose: () {
+            Navigator.pushReplacementNamed(context, homescreen.routname);
+          });
+        } else if (state is LoginFailedState) {
+          print("❌ Login failed: ${state.message}");
+          _showDialog(context, state.message);
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Log in',
+              style: TextStyle(
+                color: maincolor,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  _buildTextFormField(email, "Email", "Enter Your Email",
+                      isEmail: true),
+                  SizedBox(height: 20),
+                  _buildTextFormField(
+                      password, "Password", "Enter Your Password",
+                      isPassword: true, obscureText: true),
+                  SizedBox(height: 15),
+                  ElevatedButton(
+                    onPressed: validateForm,
+                    child: Text(
+                        state is LoginLoadingState ? "Loading..." : 'Login'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void validateForm() {
+    if (_formKey.currentState!.validate()) {
+      BlocProvider.of<AuthCubit>(context)
+          .login(email: email.text, password: password.text);
+    }
+  }
+
+  Widget _buildTextFormField(
+    TextEditingController controller,
+    String label,
+    String hint, {
+    bool obscureText = false,
+    bool isEmail = false,
+    bool isPassword = false,
+  }) {
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(labelText: label, hintText: hint),
+      validator: (value) {
+        if (value == null || value.isEmpty) return 'Please enter $label';
+        if (isEmail &&
+            !RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                .hasMatch(value)) return 'Invalid email';
+        if (isPassword && value.length < 8)
+          return 'Password must be at least 8 characters';
+        return null;
+      },
     );
   }
 }

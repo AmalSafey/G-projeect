@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/api/abstractclass.dart';
 import 'package:flutter_application_graduation/assets/login/forgetpassword.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
   static const String baseUrl = 'https://innova-hub.premiumasp.net/api/Account';
@@ -64,7 +65,6 @@ class AuthCubit extends Cubit<AuthStates> {
     }
   }
 
-  // Login
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoadingState());
 
@@ -80,22 +80,38 @@ class AuthCubit extends Cubit<AuthStates> {
         }),
       );
 
+      print("Response Code: ${response.statusCode}");
+      print("Response Body: ${response.body}");
+
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        if (data['state'] == true) {
+
+        if (data.containsKey("Token")) {
+          String token = data["Token"]; // استخراج التوكن
+          String userId = data["UserId"]; // استخراج معرف المستخدم
+          String role = data["RoleName"]; // استخراج دور المستخدم
+          String message = data["Message"]; // استخراج الرسالة
+
+          // حفظ التوكن في SharedPreferences لاستخدامه لاحقًا
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('access_token', token);
+          await prefs.setString('user_id', userId);
+          await prefs.setString('role', role);
+
           emit(LoginSuccessState(
-              Message:
-                  data['message'])); // Corrected parameter name to 'message'
+            message: message,
+            token: token,
+            userId: userId,
+            role: role,
+          ));
         } else {
-          emit(LoginFailedState(message: data['message']));
+          emit(LoginFailedState(message: "Invalid response from server"));
         }
       } else {
         emit(LoginFailedState(message: 'Login failed. Please try again.'));
       }
     } catch (e) {
-      emit(LoginFailedState(
-          message:
-              'An error occurred: ${e.toString()}')); // Improved error message
+      emit(LoginFailedState(message: 'An error occurred: ${e.toString()}'));
     }
   }
 
