@@ -262,6 +262,7 @@ class _LogindesignState extends State<Logindesign> {
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_application_graduation/api/abstractclass.dart';
+import 'package:flutter_application_graduation/screens/hometabscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_application_graduation/api/authinticationcubit.dart';
@@ -323,8 +324,11 @@ class _LogindesignState extends State<Logindesign> {
           print("✅ Login successful! Token: ${state.token}");
 
           _showDialog(context, "Login successful!", onClose: () {
-            Navigator.pushReplacementNamed(context, homescreen.routname);
+            Future.delayed(const Duration(seconds: 5), () {
+              Navigator.pushReplacementNamed(context, homescreen.routname);
+            });
           });
+          Navigator.pushNamed(context, hometabscreen.routname);
         } else if (state is LoginFailedState) {
           print("❌ Login failed: ${state.message}");
           _showDialog(context, state.message);

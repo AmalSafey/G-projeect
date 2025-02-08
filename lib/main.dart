@@ -95,15 +95,7 @@ class MyApp extends StatelessWidget {
           cart.routname: (context) => cart(),
           favourit.routname: (context) => favourit(),
           search.routname: (context) => search(),
-          profile.routeName: (context) => profile(
-                firstnameController: '',
-                lastnameController: '',
-                emailController: '',
-                passwordController: '',
-                cityController: '',
-                phoneNumber: '',
-                role: '',
-              ),
+          profile.routeName: (context) => profile(),
           hometabscreen.routname: (context) => hometabscreen()
         },
       ),

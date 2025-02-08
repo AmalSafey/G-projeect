@@ -21,14 +21,15 @@ class _hometabscreenState extends State<hometabscreen> {
     cart(),
     search(),
     profile(
-      firstnameController: '',
+
+        /* firstnameController: '',
       lastnameController: '',
       emailController: '',
       passwordController: '',
       cityController: '',
       phoneNumber: '',
-      role: '',
-    )
+      role: '',*/
+        )
   ];
   int select = 0;
 

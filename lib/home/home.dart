@@ -95,13 +95,14 @@ class _homescreenState extends State<homescreen> {
     cart(),
     search(),
     profile(
-      firstnameController: '',
+
+        /*firstnameController: '',
       lastnameController: '',
       emailController: '',
       passwordController: '',
       cityController: '',
       phoneNumber: '',
-      role: '',
-    )
+      role: '',*/
+        )
   ];
 }

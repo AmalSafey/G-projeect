@@ -53,9 +53,9 @@ class _RegisterDesignState extends State<RegisterDesign> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop(); // إغلاق الـ Dialog
+              Navigator.of(context).pop();
               if (onClose != null) {
-                onClose(); // تنفيذ الإجراء بعد إغلاق التنبيه
+                onClose();
               }
             },
             child: Text(

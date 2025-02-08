@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_graduation/customfield/customstack.dart';
 import 'package:flutter_application_graduation/screens/add.dart';
 import 'package:flutter_application_graduation/screens/contract.dart';
 import 'package:flutter_application_graduation/screens/detailspageforownerandinvestor.dart';
-import 'package:flutter_application_graduation/screens/detailsscreen.dart';
-import 'package:flutter_application_graduation/screens/detailsscreencard.dart';
-import 'package:flutter_application_graduation/screens/profile.dart';
 import 'package:flutter_application_graduation/screens/profileinvestor.dart';
 import 'package:flutter_application_graduation/screens/searchinvestor.dart';
-import 'package:flutter_application_graduation/screens/shopnecles.dart';
 
 class ownerdetails extends StatefulWidget {
   static String routname = "ownerdetails";

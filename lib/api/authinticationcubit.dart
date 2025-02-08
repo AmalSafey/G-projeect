@@ -18,7 +18,6 @@ class AuthCubit extends Cubit<AuthStates> {
 
   AuthCubit() : super(AuthInitialState());
 
-  // Register
   Future<void> register({
     required String firstName,
     required String lastName,
@@ -54,6 +53,12 @@ class AuthCubit extends Cubit<AuthStates> {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        final responseData = jsonDecode(response.body);
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString("userId", responseData["UserId"]);
+        await prefs.setString("token", responseData["Token"]);
+
         emit(RegisterSuccessState(messagesuccess: 'Register Success'));
       } else {
         final errorResponse = jsonDecode(response.body);
@@ -87,12 +92,11 @@ class AuthCubit extends Cubit<AuthStates> {
         final data = jsonDecode(response.body);
 
         if (data.containsKey("Token")) {
-          String token = data["Token"]; // استخراج التوكن
-          String userId = data["UserId"]; // استخراج معرف المستخدم
-          String role = data["RoleName"]; // استخراج دور المستخدم
-          String message = data["Message"]; // استخراج الرسالة
+          String token = data["Token"];
+          String userId = data["UserId"];
+          String role = data["RoleName"];
+          String message = data["Message"];
 
-          // حفظ التوكن في SharedPreferences لاستخدامه لاحقًا
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('access_token', token);
           await prefs.setString('user_id', userId);
